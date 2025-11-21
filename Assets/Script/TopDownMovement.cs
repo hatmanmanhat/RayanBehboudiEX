@@ -10,6 +10,8 @@ public class TopDownMovement : MonoBehaviour
 {
     public float maxSpeed = 7;
     
+    public Animator animator;
+    
     public bool controlEnabled { get; set; } = true;    // You can edit this variable from Unity Events
     
     private Vector2 moveInput;
@@ -42,6 +44,24 @@ public class TopDownMovement : MonoBehaviour
         }
         
         // Write code for walking animation here. (Suggestion: send your current velocity into the Animator for both the x- and y-axis.)
+
+        if (rb.linearVelocity == Vector2.zero)
+        {
+            animator.SetBool("IsRunning", false);
+        }
+        else
+        {
+            animator.SetBool("IsRunning", true);
+        }
+
+        if (rb.linearVelocity.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if (rb.linearVelocity.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
     
     // Handle Move-input
